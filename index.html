@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrousel Responsive</title>
+
+    <style>
+      /* style.css */
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f4f4f4;
+}
+
+.carousel-container {
+  position: relative;
+  width: 80%;
+  max-width: 800px;
+  overflow: hidden;
+}
+
+.carousel {
+  display: flex;
+  transition: transform 0.5s ease-in-out;
+  gap: 10px;
+}
+
+.carousel-item {
+  flex: 0 0 100%;
+  text-align: center;
+  background-color: #007bff;
+  color: white;
+  padding: 40px;
+  border-radius: 8px;
+  font-size: 1.5rem;
+  user-select: none;
+}
+
+button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  font-size: 1.5rem;
+  border-radius: 50%;
+  z-index: 1;
+}
+
+button:hover {
+  background: rgba(0, 0, 0, 0.8);
+}
+
+.prev-btn {
+  left: 10px;
+}
+
+.next-btn {
+  right: 10px;
+}
+
+    </style>
+</head>
+<body>
+    <div class="carousel-container">
+        <button class="prev-btn">❮</button>
+        <div class="carousel">
+            <div class="carousel-item">1</div>
+            <div class="carousel-item">2</div>
+            <div class="carousel-item">3</div>
+            <div class="carousel-item">4</div>
+            <div class="carousel-item">5</div>
+        </div>
+        <button class="next-btn">❯</button>
+    </div>
+
+    <script>
+
+// script.js
+const carousel = document.querySelector('.carousel');
+const prevBtn = document.querySelector('.prev-btn');
+const nextBtn = document.querySelector('.next-btn');
+
+let currentIndex = 0;
+
+const updateCarousel = () => {
+    const totalItems = document.querySelectorAll('.carousel-item').length;
+    const itemWidth = document.querySelector('.carousel-item').clientWidth;
+    carousel.style.transform = `translateX(-${currentIndex * itemWidth}px)`;
+};
+
+prevBtn.addEventListener('click', () => {
+    const totalItems = document.querySelectorAll('.carousel-item').length;
+    currentIndex = (currentIndex - 1 + totalItems) % totalItems;
+    updateCarousel();
+});
+
+nextBtn.addEventListener('click', () => {
+    const totalItems = document.querySelectorAll('.carousel-item').length;
+    currentIndex = (currentIndex + 1) % totalItems;
+    updateCarousel();
+});
+
+// Initial update to position correctly
+updateCarousel();
+
+
+    </script>
+</body>
+</html>
